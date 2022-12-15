@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>JS Project: Tic Tac Toe</title>
     <link rel="stylesheet" href="style.css" />
     <!-- CSS only -->
     <link
@@ -22,7 +22,7 @@
     <table>
       <tr>
         <td><i class="fa-regular fa-x fa-6x"></i></td>
-        <td class="empty-cell"><i class="fa-regular"></i></td>
+        <td class="empty-cell"><i class="fa-regular fa-6x"></i></td>
         <td><i class="fa-regular fa-x fa-6x"></i></td>
       </tr>
       <tr>
@@ -37,9 +37,13 @@
       </tr>
     </table>
 
-    <div class="game-text-box container">
+    <button class="btn btn-primary" id="btn-play">PLAY GAME!</button>
+
+    <div class="container" id="game-text-box">
       <div class="game-choose-symbol">
-        <p>Player ${player}, choose which symbol to play as:</p>
+        <p>Player 1, please enter your name and choose which symbol you'll play as:</p>
+        <label for="name">name:</label>
+        <input type="text" id="fname" name="name" /><br /><br />
         <button class="btn btn-light"><i class="fa-regular fa-x fa-3x"></i></button>
         <button class="btn btn-light"><i class="fa-regular fa-circle fa-3x"></i></button>
       </div>

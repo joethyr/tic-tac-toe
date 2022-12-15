@@ -12,6 +12,8 @@ h1 {
   font-size: 70px;
   margin-top: 1rem;
   margin-bottom: 4rem;
+  text-shadow: 2px 2px 5px gray;
+  color: white;
 }
 td {
   width: 130px;
@@ -20,8 +22,12 @@ td {
   margin-bottom: auto;
 }
 
+table {
+  display: none;
+}
+
 tbody,
-.game-text-box {
+#game-text-box {
   background-color: white;
   box-shadow: 5px 5px 10px 2px rgba(0, 0, 0, 0.8);
 }
@@ -48,12 +54,14 @@ tr:first-child > td {
   margin: auto;
 }
 
-.game-text-box {
+#game-text-box {
   margin-top: 3rem;
   border: 1px black solid;
   border-radius: 7px;
   max-width: fit-content;
   font-size: x-large;
+  padding: 1rem;
+  display: none;
 }
 
 .game-choose-symbol {
@@ -61,5 +69,10 @@ tr:first-child > td {
 }
 
 .game-text-announcer {
-  display: block;
+  display: none;
+}
+
+#btn-play {
+  padding: 1rem 2rem;
+  font-size: 2.5rem;
 }
