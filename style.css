@@ -1,16 +1,55 @@
 * {
-  box-sizing: border-box;
-}
-.center {
   margin: auto;
   text-align: center;
 }
+h1 {
+  text-align: center;
+  font-size: 70px;
+  margin-top: 1rem;
+  margin-bottom: 4rem;
+}
+td {
+  width: 130px;
+  height: 130px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
 
-/* .board-row-2 {
-  border-top: solid;
-  border-bottom: solid;
-} */
+td:nth-child(2) {
+  border-right: solid 2px black;
+  border-left: solid 2px black;
+}
 
-.gameboard {
-  width: 400px;
+tr:first-child > td {
+  border-bottom: solid 2px black;
+}
+
+tr:nth-child(2) > td,
+tr:first-child > td {
+  border-bottom: solid 2px black;
+}
+
+.empty-cell:hover {
+  background-color: yellow;
+  cursor: pointer;
+}
+
+.fa-regular {
+  margin: auto;
+}
+
+.game-text-box {
+  margin-top: 3rem;
+  border: 1px black solid;
+  border-radius: 7px;
+  max-width: fit-content;
+  font-size: x-large;
+}
+
+.game-choose-symbol {
+  display: block;
+}
+
+.game-text-announcer {
+  display: block;
 }
