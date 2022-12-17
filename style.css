@@ -56,19 +56,12 @@ tr:first-child > td {
 
 #game-text-box {
   margin-top: 3rem;
+  margin-bottom: 3rem;
   border: 1px black solid;
   border-radius: 7px;
   max-width: fit-content;
   font-size: x-large;
   padding: 1rem;
-  display: none;
-}
-
-.game-choose-symbol {
-  display: block;
-}
-
-.game-text-announcer {
   display: none;
 }
 
