@@ -24,8 +24,9 @@ p {
 td {
   width: 130px;
   height: 130px;
-  margin-top: auto;
-  margin-bottom: auto;
+  text-align: center;
+  font-size: 80px;
+  
 }
 
 table {
@@ -78,4 +79,10 @@ tr:first-child > td {
 #btn-play {
   padding: 1rem 2rem;
   font-size: 2.5rem;
+}
+
+#btn-reset {
+  margin-top: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
 }
