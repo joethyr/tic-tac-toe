@@ -54,7 +54,7 @@ const Player = (symbol) => {
 }
 
 const gameBoard = (() => {
-    const board = new Array(9)
+    const board = Array(9).fill("")
 
     const setZone = (index, symbol) => {
         board[index] = symbol;
@@ -81,11 +81,15 @@ const gameController = (() => {
         if (turn) {
             gameBoard.setZone(zoneIndex, playerO.getSymbol())
             domController.updateGameboard()
+            console.log(checkWinner(zoneIndex, playerO.getSymbol()))
+            console.log(checkDraw())
             domController.dialogueBox.innerHTML = `Turn: Player ${playerX.getSymbol()}`
             console.log(gameBoard.board)
         } else {
             gameBoard.setZone(zoneIndex, playerX.getSymbol())
             domController.updateGameboard()
+            console.log(checkWinner(zoneIndex, playerX.getSymbol()))
+            console.log(checkDraw())
             domController.dialogueBox.innerHTML = `Turn: Player ${playerO.getSymbol()}`
             console.log(gameBoard.board)
 
@@ -95,6 +99,30 @@ const gameController = (() => {
         turn = !turn;
     }
 
+    const checkWinner = (zoneIndex, symbol) => {
+        const winCombinations = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ];
+        return winCombinations
+            .filter((combination) => combination.includes(zoneIndex))
+            .some((possibleCombination) =>
+                possibleCombination.every(
+                    (index) => gameBoard.getZone(index) === symbol
+                )
+            );
+    };
+
+    // function micTest(e) {
+    //     return (e !== "" || e !== undefined)
+    // }
+    const checkDraw = () => gameBoard.board.every((e => e !== ""))
 
     domController.playButton.addEventListener("click", () => {
         domController.start()
@@ -103,6 +131,6 @@ const gameController = (() => {
     })
 
     return {
-        play
+        play, checkWinner, checkDraw
     };
 })();
