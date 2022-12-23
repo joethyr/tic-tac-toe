@@ -6,7 +6,6 @@ const domController = (() => {
     const zones = document.querySelectorAll(".zone");
     const icons = document.querySelectorAll("i")
 
-
     const start = () => {
         playButton.style.display = "none";
         boardDom.style.display = "inline-block";
@@ -15,7 +14,7 @@ const domController = (() => {
 
     zones.forEach((zone) => {
         zone.addEventListener("click", (e) => {
-            if (e.target.textContent !== "") return;
+            if (gameController.getGameOver() || e.target.textContent !== "") return;
             gameController.play(parseInt(e.target.dataset.index, 10))
         })
     })
@@ -35,9 +34,9 @@ const domController = (() => {
     resetButton.addEventListener("click", () => {
         reset()
         gameBoard.reset()
+        gameController.reset()
+        domController.dialogueBox.innerHTML = `Turn: Player ${gameController.getplayerNext()}`
     })
-
-
 
     return {
         start, playButton, dialogueBox, icons, updateGameboard
@@ -76,26 +75,45 @@ const gameController = (() => {
     const playerO = Player("O")
     const playerX = Player("X")
     let turn = true
+    let gameOver = false
+    let playerLost = ""
+    const getPlayerLost = () => playerLost
+    let playerNext = ""
+    const getplayerNext = () => playerNext
+
+
+    const getGameOver = () => gameOver;
+
+    const reset = () => {
+        gameOver = false
+    }
+
+    const checkDraw = () => {
+        if (gameBoard.board.every((e => e !== ""))) {
+            domController.dialogueBox.innerHTML = "Draw"
+        }
+    }
+
+    const playerTurn = (zone, currentPlayer, opposingPlayer) => {
+        gameBoard.setZone(zone, currentPlayer.getSymbol())
+        domController.updateGameboard()
+        if (checkWinner(zone, currentPlayer.getSymbol())) {
+            gameOver = true;
+            playerLost = opposingPlayer.getSymbol()
+            domController.dialogueBox.innerHTML = `Player ${currentPlayer.getSymbol()} Won!`
+        } else {
+            domController.dialogueBox.innerHTML = `Turn: Player ${opposingPlayer.getSymbol()}`
+        }
+        playerNext = opposingPlayer.getSymbol()
+    }
 
     const play = (zoneIndex) => {
         if (turn) {
-            gameBoard.setZone(zoneIndex, playerO.getSymbol())
-            domController.updateGameboard()
-            console.log(checkWinner(zoneIndex, playerO.getSymbol()))
-            console.log(checkDraw())
-            domController.dialogueBox.innerHTML = `Turn: Player ${playerX.getSymbol()}`
-            console.log(gameBoard.board)
+            playerTurn(zoneIndex, playerX, playerO)
         } else {
-            gameBoard.setZone(zoneIndex, playerX.getSymbol())
-            domController.updateGameboard()
-            console.log(checkWinner(zoneIndex, playerX.getSymbol()))
-            console.log(checkDraw())
-            domController.dialogueBox.innerHTML = `Turn: Player ${playerO.getSymbol()}`
-            console.log(gameBoard.board)
-
+            playerTurn(zoneIndex, playerO, playerX)
         }
-        // code to check if a player won
-        // code to check if its a draw
+        checkDraw()
         turn = !turn;
     }
 
@@ -119,18 +137,12 @@ const gameController = (() => {
             );
     };
 
-    // function micTest(e) {
-    //     return (e !== "" || e !== undefined)
-    // }
-    const checkDraw = () => gameBoard.board.every((e => e !== ""))
-
     domController.playButton.addEventListener("click", () => {
         domController.start()
         domController.dialogueBox.innerHTML = `Turn: Player ${playerO.getSymbol()}`
-        // play()
     })
 
     return {
-        play, checkWinner, checkDraw
+        play, checkWinner, checkDraw, getGameOver, reset, getplayerNext
     };
 })();
